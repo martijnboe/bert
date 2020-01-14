@@ -86,7 +86,7 @@ public class Game
             Command command = parser.getCommand();
             finished = processCommand(command);
         }
-        System.out.println("Thank you for playing.  Good bye.");
+        System.out.println("Bedankt voor het spelen. Joe Joe!");
     }
 
     /**
@@ -95,9 +95,12 @@ public class Game
     private void printWelcome()
     {
         System.out.println();
-        System.out.println("Welcome to the World of Zuul!");
-        System.out.println("World of Zuul is a new, incredibly boring adventure game.");
-        System.out.println("Type 'help' if you need help.");
+        System.out.println("Welkom bij Bert zijn avontuur!");
+        System.out.println("Jij bent Bart Schringa uit Klazienaveen die op vakantie is in de Ardennen.");
+        System.out.println("Tijdens een wandeling moet je even de druk van de ketel werken.");
+        System.out.println("Alleen tijdens het lopen naar een boom val je door een stuk grond 12.4 meter naar beneden.");
+        System.out.println("Je valt hier in het water en zwemt naar de kant.");
+        System.out.println("het is jouw taak om je weg terug te vinden naar buiten!");
         System.out.println();
         System.out.println(currentRoom.getLongDescription());
     }
@@ -112,7 +115,7 @@ public class Game
         boolean wantToQuit = false;
 
         if(command.isUnknown()) {
-            System.out.println("I don't know what you mean...");
+            System.out.println("I don't wait nait...");
             return false;
         }
 
@@ -147,10 +150,10 @@ public class Game
      */
     private void printHelp() 
     {
-        System.out.println("You are lost. You are alone. You wander");
-        System.out.println("around at the university.");
+        System.out.println("Je bent gevallen door een gat");
+        System.out.println("Je taak is om de uitgang te zoeken...");
         System.out.println();
-        System.out.println("Your command words are:");
+        System.out.println("Je commands zijn:");
         parser.showCommands();
     }
 
@@ -162,7 +165,7 @@ public class Game
     {
         if(!command.hasSecondWord()) {
             // if there is no second word, we don't know where to go...
-            System.out.println("Go where?");
+            System.out.println("Waarheen?");
             return;
         }
 
@@ -172,7 +175,7 @@ public class Game
         Room nextRoom = currentRoom.getExit(direction);
 
         if (nextRoom == null) {
-            System.out.println("There is no door!");
+            System.out.println("Er is geen uitgang");
         }
         else {
             kamer.push(currentRoom);
@@ -190,7 +193,7 @@ public class Game
     private boolean quit(Command command) 
     {
         if(command.hasSecondWord()) {
-            System.out.println("Quit what?");
+            System.out.println("Wat willen jij???");
             return false;
         }
         else {
@@ -213,13 +216,18 @@ public class Game
         //System.out.println("Stack " + kamer);
         if(currentRoom.getShortDescription() == "open ruimte in een grot") {
             System.out.println("Je roept om hulp!");
-            System.out.println("sample");
-        }   else if (currentRoom.getLongDescription() == "grot met vleermuizen") {
+            System.out.println("Achter je hoor je iemand mompelen en knorren");
+            System.out.println("In de richting van het geluid zie je een dronken slapende man liggen");
+            System.out.println("Was er maar een manier om hem wakker te maken...");
+        }   else if (currentRoom.getShortDescription() == "grot met vleermuizen") {
             System.out.println("Je schreeuwt naar hulp!");
-            System.out.println("sample");
+            System.out.println("Je hoort veel gefladder achter je");
+            System.out.println("je kijkt naar achter en je ziet een grote groep vleermuizen op je afkomen");
+            System.out.println("Je springt net op tijd aan de kant om niet geraakt te worden");
         }
         else {
             System.out.println("Je roept om hulp!");
+            System.out.println("Je hoort de echo van je geschreeuw...");
         } 
 
     }
