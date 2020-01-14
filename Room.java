@@ -26,10 +26,12 @@ public class Room
      * "an open court yard".
      * @param description The room's description.
      */
+    //int nummer is voor de back functie
     public Room(String description) 
     {
         this.description = description;
         exits = new HashMap<>();
+
     }
 
     /**
@@ -87,5 +89,6 @@ public class Room
     {
         return exits.get(direction);
     }
+    
 }
 

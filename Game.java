@@ -14,12 +14,14 @@
  * @author  Michael Kölling and David J. Barnes
  * @version 2016.02.29
  */
-
+import java.util.*;
 public class Game 
 {
     private Parser parser;
     private Room currentRoom;
-        
+    // stack voor back functie
+    private Stack <Room>kamer;
+
     /**
      * Create the game and initialise its internal map.
      */
@@ -27,6 +29,7 @@ public class Game
     {
         createRooms();
         parser = new Parser();
+        kamer = new Stack<>();
     }
 
     /**
@@ -35,7 +38,7 @@ public class Game
     private void createRooms()
     {
         Room begin, beginmijn, middenmijn, eindmijn, kamertouw, openruimte, grotvleer, kelder;
-      
+
         // create the rooms
         begin = new Room("beginkamer met water");
         beginmijn = new Room("het begin van de mijn");
@@ -45,11 +48,11 @@ public class Game
         openruimte = new Room("open ruimte in een grot");
         grotvleer = new Room("grot met vleermuizen");
         kelder = new Room("een kelder");
-        
+
         // initialise room exits
         begin.setExit("Noordwest", beginmijn);
         begin.setExit("Noordoost", openruimte);
-        
+
         // links
         beginmijn.setExit("Noord", middenmijn);
 
@@ -58,11 +61,11 @@ public class Game
         middenmijn.setExit("West", kamertouw);
 
         //eindmijn.setExit("sample", outside);
-        
+
         //rechts
         openruimte.setExit("Noord", grotvleer);
         openruimte.setExit("Oost", kelder); //moet pas later tevoorschijn komen
-       
+
         grotvleer.setExit("West", middenmijn);
 
         currentRoom = begin;  // start game outside
@@ -77,7 +80,7 @@ public class Game
 
         // Enter the main command loop.  Here we repeatedly read commands and
         // execute them until the game is over.
-                
+
         boolean finished = false;
         while (! finished) {
             Command command = parser.getCommand();
@@ -123,6 +126,14 @@ public class Game
         else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
         }
+        //back command
+        else if (commandWord.equals("back")) {
+            back();
+        }
+        //schreeuw command
+        else if (commandWord.equals("schreeuw")) {
+            schreeuw();
+        }
         // else command not recognised.
         return wantToQuit;
     }
@@ -164,8 +175,10 @@ public class Game
             System.out.println("There is no door!");
         }
         else {
+            kamer.push(currentRoom);
             currentRoom = nextRoom;
             System.out.println(currentRoom.getLongDescription());
+
         }
     }
 
@@ -183,5 +196,31 @@ public class Game
         else {
             return true;  // signal that we want to quit
         }
+    }
+
+    //back command
+    private void back() 
+    {
+        if (kamer != null) {
+            currentRoom = kamer.pop();
+            System.out.println(currentRoom.getLongDescription());
+        }
+    }    
+
+    //schreeuw command 
+    private void schreeuw() 
+    { 
+        //System.out.println("Stack " + kamer);
+        if(currentRoom.getShortDescription() == "open ruimte in een grot") {
+            System.out.println("Je roept om hulp!");
+            System.out.println("sample");
+        }   else if (currentRoom.getLongDescription() == "grot met vleermuizen") {
+            System.out.println("Je schreeuwt naar hulp!");
+            System.out.println("sample");
+        }
+        else {
+            System.out.println("Je roept om hulp!");
+        } 
+
     }
 }
