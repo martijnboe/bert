@@ -92,12 +92,9 @@ public class Game
     private void printWelcome()
     {
         System.out.println();
-        System.out.println("Welkom bij Bert zijn avontuur!");
-        System.out.println("Jij bent Bart Schringa uit Klazienaveen die op vakantie is in de Ardennen.");
-        System.out.println("Tijdens een wandeling moet je even de druk van de ketel werken.");
-        System.out.println("Alleen tijdens het lopen naar een boom val je door een stuk grond 12.4 meter naar beneden.");
-        System.out.println("Je valt hier in het water en zwemt naar de kant.");
-        System.out.println("het is jouw taak om je weg terug te vinden naar buiten!");
+        System.out.println("Welcome to the World of Zuul!");
+        System.out.println("World of Zuul is a new, incredibly boring adventure game.");
+        System.out.println("Type 'help' if you need help.");
         System.out.println();
         System.out.println(currentRoom.getLongDescription());
     }
