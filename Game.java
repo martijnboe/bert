@@ -181,7 +181,7 @@ public class Game
             kamer.push(currentRoom);
             currentRoom = nextRoom;
             System.out.println(currentRoom.getLongDescription());
-
+            mijnKar();
         }
     }
 
@@ -230,5 +230,37 @@ public class Game
             System.out.println("Je hoort de echo van je geschreeuw...");
         } 
 
+    }
+
+    //mijnkar functie
+    Random rand = new Random();
+    
+    private int randomGetal() 
+    {
+    int getal = rand.nextInt(5);
+    //int getal = 1;
+    return getal;
+    }
+    
+    private void mijnKar()
+    {
+        if (currentRoom.getShortDescription() == "het begin van de mijn" && randomGetal() == 1) {
+            back();
+            System.out.println("Je struikelt en valt in een oude mijnkar!");
+            System.out.println("Daardoor begint de mijnkar te rollen en rol je terug naar het begin!");
+            System.out.println("Je opties zijn nu Noordoost en Noordwest");
+        } else if (currentRoom.getShortDescription() == "het midden van de mijn" && randomGetal() == 1) {
+            back();
+            back();
+            System.out.println("Je struikelt en valt in een oude mijnkar!");
+            System.out.println("Daardoor begint de mijnkar te rollen en rol je terug naar het begin!");
+            System.out.println("Je opties zijn nu Noordoost en Noordwest");
+        } else if (currentRoom.getShortDescription() == "het eind van de mijn" && randomGetal() == 1) {
+            back();
+            back();
+            System.out.println("Je struikelt en valt in een oude mijnkar!");
+            System.out.println("Daardoor begint de mijnkar te rollen en rol je terug naar het begin van de mijn!");
+            System.out.println("Je optie is nu Noord");
+        }
     }
 }
