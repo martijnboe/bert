@@ -57,16 +57,16 @@ public class Game
         beginmijn.setExit("Noord", middenmijn);
 
         middenmijn.setExit("Noord", eindmijn);
-        middenmijn.setExit("Oost", grotvleer);
-        middenmijn.setExit("West", kamertouw);
+        middenmijn.setExit("Afdalen", grotvleer);
+        middenmijn.setExit("West", kamertouw); //moet pas later tevoorschijn komen
 
         //eindmijn.setExit("sample", outside);
 
         //rechts
-        openruimte.setExit("Noord", grotvleer);
+        openruimte.setExit("Afdalen", grotvleer);
         openruimte.setExit("Oost", kelder); //moet pas later tevoorschijn komen
 
-        grotvleer.setExit("West", middenmijn);
+        grotvleer.setExit("Klim_Omhoog", middenmijn);
 
         currentRoom = begin;  // start game outside
     }
@@ -213,7 +213,7 @@ public class Game
     //schreeuw command 
     private void schreeuw() 
     { 
-        //System.out.println("Stack " + kamer);
+        //check voor de kamers
         if(currentRoom.getShortDescription() == "open ruimte in een grot") {
             System.out.println("Je roept om hulp!");
             System.out.println("Achter je hoor je iemand mompelen en knorren");
@@ -233,15 +233,19 @@ public class Game
     }
 
     //mijnkar functie
-    Random rand = new Random();
     
+    //random
+    Random rand = new Random();
+
+    //functie voor een random getal
     private int randomGetal() 
     {
-    int getal = rand.nextInt(5);
-    //int getal = 1;
-    return getal;
+        int getal = rand.nextInt(5);
+        return getal;
     }
-    
+
+    //hier word gekeken naar welke kamer het is en of het juiste getal gerolled is
+    //zo ja dan word de speler verplaatst
     private void mijnKar()
     {
         if (currentRoom.getShortDescription() == "het begin van de mijn" && randomGetal() == 1) {
