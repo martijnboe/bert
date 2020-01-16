@@ -137,6 +137,18 @@ public class Game
         else if (commandWord.equals("schreeuw")) {
             schreeuw();
         }
+        //inv command
+        else if (commandWord.equals("inv")) {
+            inv();
+        }
+        //drop command
+        else if (commandWord.equals("drop")) {
+            drop(command);
+        }
+        //pak command
+        else if (commandWord.equals("pak")) {
+            pak(command);
+        }
         // else command not recognised.
         return wantToQuit;
     }
@@ -233,7 +245,7 @@ public class Game
     }
 
     //mijnkar functie
-    
+
     //random
     Random rand = new Random();
 
@@ -266,5 +278,36 @@ public class Game
             System.out.println("Daardoor begint de mijnkar te rollen en rol je terug naar het begin van de mijn!");
             System.out.println("Je optie is nu Noord");
         }
+    }
+
+    //array voor inv
+    ArrayList<String> inventory = new ArrayList<String>(); 
+
+    //inventory functie
+    private void inv() {
+        System.out.println(inventory);
+    }
+
+    //drop functie
+    private void drop(Command command) {
+        if(!command.hasSecondWord()) {
+            //check voor item
+            System.out.println("Selecteer een item");
+            return;
+        }
+        String item = command.getSecondWord();
+        inventory.remove(item);
+    }
+
+    //pak functie
+    private void pak(Command command) {
+        if(!command.hasSecondWord()) {
+            //check voor item
+            System.out.println("Selecteer een item");
+            return;
+        }
+        String item = command.getSecondWord();
+        inventory.remove(item);
+        inventory.add(item);
     }
 }
