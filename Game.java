@@ -22,6 +22,11 @@ public class Game
     // stack voor back functie
     private Stack <Room>kamer;
 
+    public static void main(String[] args){
+        Game obj = new Game();
+        obj.play();
+    }
+    
     /**
      * Create the game and initialise its internal map.
      */
@@ -141,14 +146,16 @@ public class Game
         else if (commandWord.equals("inv")) {
             inv();
         }
+        
         //drop command
         else if (commandWord.equals("drop")) {
             drop(command);
         }
-        //pak command
+        /*pak command
         else if (commandWord.equals("pak")) {
             pak(command);
         }
+        */
         //menu command
         else if (commandWord.equals("menu")) {
             menu();
@@ -289,12 +296,14 @@ public class Game
     }
 
     //array voor inv
-    ArrayList<String> inventory = new ArrayList<String>(); 
+    //ArrayList<String> inventory = new ArrayList<String>();
+    HashMap<String, String> inventory = new HashMap<String, String>();
 
     //inventory functie
     private void inv() {
         System.out.println(inventory);
     }
+    
 
     //drop functie
     private void drop(Command command) {
@@ -307,7 +316,7 @@ public class Game
         inventory.remove(item);
     }
 
-    //pak functie
+    /*pak functie
     private void pak(Command command) {
         if(!command.hasSecondWord()) {
             //check voor item
@@ -318,6 +327,7 @@ public class Game
         inventory.remove(item);
         inventory.add(item);
     }
+    */
     
     private void menu() {
         System.out.println("Welkom in het menu van Bert's crazy adventures");
