@@ -149,6 +149,14 @@ public class Game
         else if (commandWord.equals("pak")) {
             pak(command);
         }
+        //menu command
+        else if (commandWord.equals("menu")) {
+            menu();
+        }
+        //about command
+        else if (commandWord.equals("about")) {
+            about();
+        }
         // else command not recognised.
         return wantToQuit;
     }
@@ -196,7 +204,7 @@ public class Game
             mijnKar();
         }
     }
-
+        
     /** 
      * "Quit" was entered. Check the rest of the command to see
      * whether we really quit the game.
@@ -221,7 +229,7 @@ public class Game
             System.out.println(currentRoom.getLongDescription());
         }
     }    
-
+    
     //schreeuw command 
     private void schreeuw() 
     { 
@@ -241,7 +249,7 @@ public class Game
             System.out.println("Je roept om hulp!");
             System.out.println("Je hoort de echo van je geschreeuw...");
         } 
-
+        
     }
 
     //mijnkar functie
@@ -309,5 +317,15 @@ public class Game
         String item = command.getSecondWord();
         inventory.remove(item);
         inventory.add(item);
+    }
+    
+    private void menu() {
+        System.out.println("Welkom in het menu van Bert's crazy adventures");
+        System.out.println("U heeft de volgende opties");
+        System.out.println("about, quit");
+    }
+    
+    private void about() {
+        System.out.println("Dit spel is gemaakt door Martijn Boer en Stijn Prins");
     }
 }
