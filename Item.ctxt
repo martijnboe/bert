@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Item
+comment0.text=\r\n\ Deze\ klasse\ gaat\ over\ items\r\n\r\n\ @author\ Martijn\ Boer\ &\ Stijn\ Prins\r\n\ @version\ 1.0\r\n
+comment1.params=itemNaam\ description\ gewicht
+comment1.target=Item(java.lang.String,\ java.lang.String,\ int)
+comment1.text=\r\n\ Methode\ waardoor\ de\ items\ worden\ opgeslagen.\r\n
+comment2.params=
+comment2.target=java.lang.String\ getDescription()
+comment2.text=\r\n\ Methode\ die\ de\ beschrijving\ van\ een\ item\ retourneert\r\n
+comment3.params=
+comment3.target=int\ getItemGewicht()
+comment3.text=\r\n\ Methode\ die\ het\ gewicht\ van\ een\ item\ teruggeeft\r\n
+numComments=4

@@ -1,0 +1,22 @@
+#BlueJ class context
+comment0.target=Speler
+comment0.text=\r\n\ class\ Speler\ -\ geef\ hier\ een\ beschrijving\ van\ deze\ class\r\n\r\n\ @author\ Martijn\ Boer\ &\ Stijn\ Prins\r\n\ @version\ 1.0\r\n
+comment1.params=huiGewicht\ maxGewicht
+comment1.target=Speler(int,\ int)
+comment2.params=itemNaam\ item
+comment2.target=boolean\ pickUpItem(java.lang.String,\ Item)
+comment3.params=itemNaam
+comment3.target=boolean\ dropItem(java.lang.String)
+comment4.params=
+comment4.target=java.lang.String\ getInventory()
+comment5.params=itemName
+comment5.target=boolean\ isInInventory(java.lang.String)
+comment6.params=
+comment6.target=int\ getCurrentWeight()
+comment7.params=item
+comment7.target=boolean\ canPickUpItem(Item)
+comment8.params=item
+comment8.target=void\ setUsedItem(Item)
+comment9.params=item
+comment9.target=boolean\ itemIsUsed(Item)
+numComments=10
