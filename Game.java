@@ -19,9 +19,11 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
+    private boolean finished = false;
     // stack voor back functie
     private Stack <Room>kamer;
     private Room begin, beginmijn, middenmijn, eindmijn, kamertouw, openruimte, grotvleer, kelder, dood, boven;
+    private Item Pikhouweel, Baked_beans, Touw, Kaars, Lantaarn, Dynamiet;
 
     public static void main(String[] args){
         Game obj = new Game();
@@ -34,8 +36,12 @@ public class Game
     public Game() 
     {
         createRooms();
+        maakItems();
         parser = new Parser();
         kamer = new Stack<>();
+    }
+    public void setFinished(){
+        this.finished = true;
     }
 
     /**
@@ -75,6 +81,24 @@ public class Game
 
         currentRoom = begin;  // start game outside
     }
+    
+    private void maakItems(){
+        //creeer items
+        Pikhouweel = new Item("Pikhouweel", "Misschien kan je met dit item iets breken?", 6);
+        Baked_beans = new Item("Baked beans", "Misschien kan je dit later nog opeten", 2);
+        Touw = new Item("Touw", "Misschien kan je met dit touw naar buiten klimmen?", 1);
+        Kaars = new Item("Kaars", "een kaars", 1);
+        Lantaarn = new Item("Lantaarn", "ah nu heb je eindelijk licht", 4);
+        Dynamiet = new Item("Dynamiet", "Hiermee kan je misschien je weg naar buiten blazen?", 3 );
+
+        //items toevoegen aan kamers
+        grotvleer.addItem("Pikhouweel", Pikhouweel);
+        beginmijn.addItem("Dynamiet", Dynamiet);
+        kamertouw.addItem("Touw", Touw);
+        kamertouw.addItem("Kaars", Kaars);
+        beginmijn.addItem("Lantaarn", Lantaarn);
+        openruimte.addItem("Baked Beans", Baked_beans);
+    }
 
     /**
      *  Main play routine.  Loops until end of play.
@@ -86,7 +110,7 @@ public class Game
         // Enter the main command loop.  Here we repeatedly read commands and
         // execute them until the game is over.
 
-        boolean finished = false;
+        
         while (! finished) {
             Command command = parser.getCommand();
             finished = processCommand(command);
