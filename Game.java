@@ -21,9 +21,7 @@ public class Game
     private Room currentRoom;
     // stack voor back functie
     private Stack <Room>kamer;
-    private Item Pikhouweel, Baked_beans, Touw, Kaars, Lantaarn, Dynamiet;
-    private Speler speler;
-    private Room begin, dood, beginmijn, middenmijn, eindmijn, kamertouw, openruimte, grotvleer, kelder;
+    private Room begin, beginmijn, middenmijn, eindmijn, kamertouw, openruimte, grotvleer, kelder, dood, boven;
 
     public static void main(String[] args){
         Game obj = new Game();
@@ -36,7 +34,6 @@ public class Game
     public Game() 
     {
         createRooms();
-        maakItems();
         parser = new Parser();
         kamer = new Stack<>();
     }
@@ -44,9 +41,8 @@ public class Game
     /**
      * Create all the rooms and link their exits together.
      */
-    public void createRooms()
-    {
-        
+    private void createRooms()
+    {        
 
         // create the rooms
         begin = new Room("beginkamer met water");
@@ -58,61 +54,26 @@ public class Game
         grotvleer = new Room("grot met vleermuizen");
         kelder = new Room("een kelder");
         dood = new Room("dood");
+        boven = new Room("boven");
 
         // initialise room exits
         begin.setExit("Noordwest", beginmijn);
         begin.setExit("Noordoost", openruimte);
-        begin.setExit("Omhoog", dood);
 
         // links
         beginmijn.setExit("Noord", middenmijn);
 
         middenmijn.setExit("Noord", eindmijn);
         middenmijn.setExit("Afdalen", grotvleer);
-        middenmijn.setExit("West", kamertouw); //moet pas later tevoorschijn komen
 
         //eindmijn.setExit("sample", outside);
 
         //rechts
         openruimte.setExit("Afdalen", grotvleer);
-        openruimte.setExit("Oost", kelder); //moet pas later tevoorschijn komen
+
         grotvleer.setExit("Klim_Omhoog", middenmijn);
-        
-        //middenmijn.setLockedExit("West");
-        //eindmijn.setLockedExit("Oost");
-        //begin.setLockedExit("Omhoog");
 
         currentRoom = begin;  // start game outside
-    }
-
-    private void maakItems(){
-        //creeer items
-        Pikhouweel = new Item("Pikhouweel", "Misschien kan je met dit item iets breken?", 6);
-        Baked_beans = new Item("Baked beans", "Misschien kan je dit later nog opeten", 2);
-        Touw = new Item("Touw", "Misschien kan je met dit touw naar buiten klimmen?", 1);
-        Kaars = new Item("Kaars", "een kaars", 1);
-        Lantaarn = new Item("Lantaarn", "ah nu heb je eindelijk licht", 4);
-        Dynamiet = new Item("Dynamiet", "Hiermee kan je misschien je weg naar buiten blazen?", 3 );
-
-        //items toevoegen aan kamers
-        grotvleer.addItem("Pikhouweel", Pikhouweel);
-        beginmijn.addItem("Dynamiet", Dynamiet);
-        kamertouw.addItem("Touw", Touw);
-        kamertouw.addItem("Kaars", Kaars);
-        beginmijn.addItem("Lantaarn", Lantaarn);
-
-        //set items to unlock exit
-        middenmijn.setItemToUnlock("Pikhouweel");
-        eindmijn.setItemToUnlock("Dynamiet");
-        begin.setItemToUnlock("Touw");
-    }
-    
-    /**
-     * Create the player.
-     */
-    private void maakGewicht(){
-         //create player
-        speler = new Speler(0, 5);
     }
 
     /**
@@ -126,7 +87,7 @@ public class Game
         // execute them until the game is over.
 
         boolean finished = false;
-        while (!finished) {
+        while (! finished) {
             Command command = parser.getCommand();
             finished = processCommand(command);
         }
@@ -140,7 +101,7 @@ public class Game
     {
         System.out.println();
         System.out.println("Welkom bij Bert zijn avontuur!");
-        System.out.println("Jij bent Bert Schuringa uit Klazienaveen die op vakantie is in de Ardennen.");
+        System.out.println("Jij bent Bart Schringa uit Klazienaveen die op vakantie is in de Ardennen.");
         System.out.println("Tijdens een wandeling moet je even de druk van de ketel werken.");
         System.out.println("Alleen tijdens het lopen naar een boom val je door een stuk grond 12.4 meter naar beneden.");
         System.out.println("Je valt hier in het water en zwemt naar de kant.");
@@ -192,9 +153,9 @@ public class Game
         }
         //pak command
         else if (commandWord.equals("pak")) {
-        pak(command);
+            pak(command);
         }
-        
+
         //menu command
         else if (commandWord.equals("menu")) {
             menu();
@@ -249,6 +210,10 @@ public class Game
             System.out.println(currentRoom.getLongDescription());
             mijnKar();
         }
+        touwToegang();
+        touwEinde();
+        dynaEinde();
+        belgEinde();
     }
 
     /** 
@@ -270,9 +235,7 @@ public class Game
     //back command
     private void back() 
     {
-        if (currentRoom.getShortDescription() == "beginkamer met water") {
-            System.out.println("Je kan niet verder terug");
-        } else if(kamer != null) {
+        if (kamer != null) {
             currentRoom = kamer.pop();
             System.out.println(currentRoom.getLongDescription());
         }
@@ -358,16 +321,15 @@ public class Game
 
     //pak functie
     private void pak(Command command) {
-    if(!command.hasSecondWord()) {
-    //check voor item
-    System.out.println("Selecteer een item");
-    return;
+        if(!command.hasSecondWord()) {
+            //check voor item
+            System.out.println("Selecteer een item");
+            return;
+        }
+        String item = command.getSecondWord();
+        inventory.remove(item);
+        inventory.add(item);
     }
-    String item = command.getSecondWord();
-    inventory.remove(item);
-    inventory.add(item);
-    }
-    
 
     private void menu() {
         System.out.println("Welkom in het menu van Bert's crazy adventures");
@@ -377,5 +339,41 @@ public class Game
 
     private void about() {
         System.out.println("Dit spel is gemaakt door Martijn Boer en Stijn Prins");
+    }
+
+    //toegang met het touw
+    private void touwToegang() {
+        for (String string : inventory) {
+            if(string.matches("(?i)(Pikhouweel).*")) {
+                middenmijn.setExit("Hak", kamertouw);
+            }
+        }
+    }
+
+    //einde met het touw
+    private void touwEinde() {
+        for (String string : inventory) {
+            if(string.matches("(?i)(Touw).*")) {
+                begin.setExit("Klim", boven);
+            }
+        }   
+    }
+
+    //einde met het dynamiet
+    private void dynaEinde() {
+        for (String string : inventory) {
+            if(string.matches("(?i)(Dynamiet).*")) {
+                eindmijn.setExit("Blaas_Op", dood);
+            }
+        }
+    }
+
+    //einde met de belg
+    private void belgEinde() {
+        for (String string : inventory) {
+            if(string.matches("(?i)(Beker_Water).*")) {
+                openruimte.setExit("Wek", kelder);
+            }
+        }
     }
 }
